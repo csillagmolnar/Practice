@@ -27,3 +27,16 @@ def lookup_password(password: str) -> Tuple[str, str]:
     count = next(count for hash_tail, count in res_result if hash_tail == pwd_hash_tail)
 
     return pwd_hash, count
+
+
+def main(arg):
+    correct_form_pwd = arg.strip()
+    pwd_hash, count = lookup_password(correct_form_pwd)
+    print(f"""
+          Your password: {correct_form_pwd}
+          Hash of your password: {pwd_hash}
+          Number of your password is leaked: {count} """)
+
+
+if __name__ == '__main__':
+    main(sys.argv[1])
