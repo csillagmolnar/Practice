@@ -1,6 +1,8 @@
 import hashlib
 import sys
 
+from typing import Tuple
+
 # Handle requests is installed
 try:
     import requests
@@ -8,12 +10,13 @@ except ImportError:
     print('Install requests package')
     exit()
 
-def lookup_password(password):
+
+def lookup_password(password: str) -> Tuple[str, str]:
     pwd_hash = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
     pwd_hash_head = pwd_hash[:5]
     pwd_hash_tail = pwd_hash[5:]
-    URL = 'https://api.pwnedpasswords.com/range/' + pwd_hash_head
-    
+    URL = f'https://api.pwnedpasswords.com/range/{pwd_hash_head}'
+
     try:
         res = requests.get(URL)
     except requests.exceptions.RequestException as e:
